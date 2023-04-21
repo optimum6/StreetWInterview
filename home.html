@@ -104,27 +104,29 @@
                 var todaysConditions = todayData['Conditions'];
                 var tomorrowsConditions = tomorrowData['Conditions'];
 
-                // If the conditions contain the word rain, then set the image to the rain icon, etc
-                if (todaysConditions.includes("Rain")) {
-                    document.getElementById('contentImage').src = "https://www.freeiconspng.com/uploads/rain-icon-0.png";
-                } else if (todaysConditions.includes("Cloud")) {
-                    document.getElementById('contentImage').src = "https://www.freeiconspng.com/uploads/rain-cloud-icon-15.png";
-                } else {
-                    document.getElementById('contentImage').src = "https://www.freeiconspng.com/uploads/sun-icon-0.png";
-                }
-
-                if (tomorrowsConditions.includes("Rain")) {
-                    document.getElementById('contentImage2').src = "https://www.freeiconspng.com/uploads/rain-icon-0.png";
-                } else if (tomorrowsConditions.includes("Cloud")) {
-                    document.getElementById('contentImage2').src = "https://www.freeiconspng.com/uploads/rain-cloud-icon-15.png";
-                } else {
-                    document.getElementById('contentImage2').src = "https://www.freeiconspng.com/uploads/sun-icon-0.png";
-                }
-
-
                 var cloudIcon = "https://www.freeiconspng.com/uploads/cloud-icon-17.png"
                 var sunIcon = "https://www.freeiconspng.com/uploads/sun-icon-30.png"
                 var rainIcon = "https://www.freeiconspng.com/uploads/rain-cloud-icon-15.png"
+
+                // If the conditions contain the word rain, then set the image to the rain icon, etc
+                if (todaysConditions.includes("Rain")) {
+                    document.getElementById('contentImage').src = rainIcon;
+                } else if (todaysConditions.includes("Cloud")) {
+                    document.getElementById('contentImage').src = cloudIcon;
+                } else {
+                    document.getElementById('contentImage').src = sunIcon;
+                }
+
+                if (tomorrowsConditions.includes("Rain")) {
+                    document.getElementById('contentImage2').src = rainIcon;
+                } else if (tomorrowsConditions.includes("Cloud")) {
+                    document.getElementById('contentImage2').src = cloudIcon;
+                } else {
+                    document.getElementById('contentImage2').src = sunIcon;
+                }
+
+
+                
 
                 console.log(todayTemp);
                 console.log(tomorrowTemp);
