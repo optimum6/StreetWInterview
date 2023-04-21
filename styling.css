@@ -1,0 +1,59 @@
+/* Styling for main page */
+
+.super-layout{
+    width: 70%;;
+    justify-content: center;
+    display: flex;
+}
+
+/* Center the h1 and h2 */
+h1, h2 {
+  text-align: center;
+}
+
+/* div class which aligns horizontally */
+.horizontal {
+  display: flex;
+  /* Move all items to the centre of the div */
+    justify-content: center;
+}
+
+.left-right-padding {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.custom-button {
+    background: #474747;
+    border-radius: 10px;
+    color: #ffffff;
+    box-shadow: 0 2px #999;
+    border: 1px solid #474747;
+    height: 25px;
+    align-self: center;
+}
+
+.custom-input {
+
+    border-radius: 10px;
+    /* Add a shadow and rasied */
+    box-shadow: 0 2px #999;
+    border: 1px solid #474747;
+    /* Set a height */
+    height: 20px;
+}
+
+.content-box {
+    background-color: #dfdfdf;
+    border-radius: 10px;
+    height: 500px;
+    width: 90%;
+
+}
+
+.content-boxes-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+}
+
