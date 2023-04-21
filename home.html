@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <!-- Link style sheet in same directory -->
+    <link rel="stylesheet" href="styling.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+  </head>
+
+<div class="super-layout">
+    <main>
+    <h1>Weather Checker</h1>
+    <h2>Please enter your latitude and longitute to check the weather</h2>
+
+    <div class="horizontal">
+    <p class="left-right-padding"> Latitude: <input  class="custom-input" type="text" id="lat" name="lat" value="" size="10" maxlength="10" /></p>
+    <p class="left-right-padding"> Longitude: <input  class="custom-input" type="text" id="long" name="long" value="" size="10" maxlength="10" /></p>
+
+    <button type="submit" class="left-right-padding custom-button">Get Weather Details</button>
+    </div>
+
+    <!-- Grid for boxes -->
+    <div class="content-boxes-container">
+
+
+        <!-- Content Box 1 -->
+        <div class = "content-box">
+            <h2>Today's Weather</h2>
+            <img id="contentImage" src="" width="20px">
+            <p>Temperature: </p>
+            <p id="temp"></p>
+            <p>Humidity: </p>
+            <p id="humidity"></p>
+
+
+        </div>
+
+
+        <!-- Content Box 2 -->
+        <div class = "content-box">
+            <h2>Tomorrow's Weather</h2>
+            <img id="contentImage2" src="" alt="" width="20px">
+            <p>Temperature: </p>
+            <p id="temp2"></p>
+            <p>Humidity: </p>
+            <p id="humidity2"></p>
+        </div>
+
+        
+
+
+    </div>
+
+    </main>
+
+</div>
+
+
+<script>
+    // Set an on click listener for the button
+    // Set an on click listener for the button
+    document.querySelector('button').addEventListener('click', function() {
+        // Get the latitude and longitude from the input boxes
+        var lat = document.getElementById('lat').value;
+        var long = document.getElementById('long').value;
+        console.log(lat);
+
+        // Create a new request object
+        var request = new XMLHttpRequest();
+
+        // Open a new connection, using the GET request on the URL endpoint
+        request.open('GET', 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?aggregateHours=24&contentType=csv&unitGroup=us&key=V8A4BKNWENQCCD5WH4GAJDVUT&locations=' + lat + ',' + long);
+
+        request.onload = function() {
+            if (request.status === 200) {
+                // Parse the CSV response
+                var csv = request.responseText;
+                var data = d3.csvParse(csv);
+
+                // Get todays and tomoorows Data:
+                var todayData = data[0];
+                var tomorrowData = data[1];
+
+                var todayTemp = todayData['Temperature'];
+                todayTemp = Math.round(todayTemp);
+                var tomorrowTemp = tomorrowData['Temperature'];
+                tomorrowTemp = Math.round(tomorrowTemp);
+
+
+                // Set the vars for the temp
+                document.getElementById('temp').innerHTML = todayTemp;
+                document.getElementById('temp2').innerHTML = tomorrowTemp;
+
+
+                var todayHumidity = todayData['Relative Humidity'];
+                todayHumidity = Math.round(todayHumidity);
+                var tomorrowHumidity = tomorrowData['Relative Humidity'];
+                tomorrowHumidity = Math.round(tomorrowHumidity);
+
+                // Set the vars for the humidity
+                document.getElementById('humidity').innerHTML = todayHumidity;
+                document.getElementById('humidity2').innerHTML = tomorrowHumidity;
+
+                var todaysConditions = todayData['Conditions'];
+                var tomorrowsConditions = tomorrowData['Conditions'];
+
+                // If the conditions contain the word rain, then set the image to the rain icon, etc
+                if (todaysConditions.includes("Rain")) {
+                    document.getElementById('contentImage').src = "https://www.freeiconspng.com/uploads/rain-icon-0.png";
+                } else if (todaysConditions.includes("Cloud")) {
+                    document.getElementById('contentImage').src = "https://www.freeiconspng.com/uploads/rain-cloud-icon-15.png";
+                } else {
+                    document.getElementById('contentImage').src = "https://www.freeiconspng.com/uploads/sun-icon-0.png";
+                }
+
+                if (tomorrowsConditions.includes("Rain")) {
+                    document.getElementById('contentImage2').src = "https://www.freeiconspng.com/uploads/rain-icon-0.png";
+                } else if (tomorrowsConditions.includes("Cloud")) {
+                    document.getElementById('contentImage2').src = "https://www.freeiconspng.com/uploads/rain-cloud-icon-15.png";
+                } else {
+                    document.getElementById('contentImage2').src = "https://www.freeiconspng.com/uploads/sun-icon-0.png";
+                }
+
+
+                var cloudIcon = "https://www.freeiconspng.com/uploads/cloud-icon-17.png"
+                var sunIcon = "https://www.freeiconspng.com/uploads/sun-icon-30.png"
+                var rainIcon = "https://www.freeiconspng.com/uploads/rain-cloud-icon-15.png"
+
+                console.log(todayTemp);
+                console.log(tomorrowTemp);
+
+            }
+
+        }
+        request.send();
+
+    });
+    
+
+
+</script>
+
+</html>
